@@ -1,8 +1,9 @@
-import 'package:flutter/material.dart';
 import 'dart:async';
 
-import 'package:flutter/services.dart';
-import 'package:native_add/native_add.dart';
+import 'package:flutter/material.dart';
+// import 'package:flutter/services.dart';
+
+import 'ffi/native_core.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,31 +15,43 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
+  // String _platformVersion = 'Unknown';
+  int _sumResult = 0;
+  String _locale = 'Unknown';
+  Map<String, String> _localizedStrings = {};
 
   @override
   void initState() {
     super.initState();
-    initPlatformState();
+
+    // _initPlatformState();
+
+    // No need to call setState synchronously from initState();
+    _sumResult = NativeCore().add(1, 2);
+
+    _initLocaleState();
+
+    _localizeStrings();
   }
 
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initPlatformState() async {
-    String platformVersion;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    try {
-      platformVersion = await NativeUtils.platformVersion;
-    } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
-    }
+  Future<void> _initLocaleState() async {
+    await NativeCore().getLocale(whenDone: (locale) {
+      if (!mounted) return;
 
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
+      setState(() {
+        _locale = locale;
+      });
+    });
+  }
 
-    setState(() {
-      _platformVersion = platformVersion;
+  Future<void> _localizeStrings() async {
+    await NativeCore().localize(['Hello, world', 'I prefer C++'],
+        whenDone: (results) {
+      if (!mounted) return;
+
+      setState(() {
+        _localizedStrings = results;
+      });
     });
   }
 
@@ -50,8 +63,10 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Plugin example app'),
         ),
         body: Center(
-          child: Text(
-              'Running on: $_platformVersion\n1 + 2 == ${nativeAdd(1, 2)}'),
+          // child: Text('Running on: $_platformVersion\n1 + 2 == $_sumResult\n'
+          child: Text('1 + 2 == $_sumResult\n'
+              '$_locale\n${_localizedStrings["Hello, world"]}\n'
+              '${_localizedStrings["I prefer C++"]}'),
         ),
       ),
     );

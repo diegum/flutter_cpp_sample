@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 group 'com.example.native_add'
+=======
+group 'com.example.nativecore'
+>>>>>>> b8d9242 (Initial commit.)
 version '1.0-SNAPSHOT'
 
 buildscript {
@@ -27,17 +31,6 @@ apply plugin: 'kotlin-android'
 android {
     compileSdkVersion 29
 
-    externalNativeBuild {
-        // Encapsulates your CMake build configurations.
-        cmake {
-            // Provides a relative path to your CMake build script.
-            path "CMakeLists.txt"
-        }
-    }
-
-    sourceSets {
-        main.java.srcDirs += 'src/main/kotlin'
-    }
     defaultConfig {
         minSdkVersion 16
     }

@@ -5,6 +5,8 @@
 .pub/
 
 .idea
+.vscode
+
 android/.cxx
 
 build/

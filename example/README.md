@@ -1,6 +1,6 @@
-# native_add_example
+# native_core_example
 
-Demonstrates how to use the native_add plugin.
+Demonstrates how to use the native_core plugin.
 
 ## Getting Started
 

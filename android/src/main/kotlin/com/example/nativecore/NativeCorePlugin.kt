@@ -1,4 +1,4 @@
-package com.example.native_add
+package com.example.nativecore
 
 import androidx.annotation.NonNull
 
@@ -9,8 +9,8 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.plugin.common.PluginRegistry.Registrar
 
-/** NativeAddPlugin */
-class NativeAddPlugin: FlutterPlugin, MethodCallHandler {
+/** NativeCorePlugin */
+class NativeCorePlugin: FlutterPlugin, MethodCallHandler {
   /// The MethodChannel that will the communication between Flutter and native Android
   ///
   /// This local reference serves to register the plugin with the Flutter Engine and unregister it

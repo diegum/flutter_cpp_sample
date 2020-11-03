@@ -32,13 +32,21 @@ android {
         main.java.srcDirs += 'src/main/kotlin'
     }
 
+    externalNativeBuild {
+        // Encapsulates your CMake build configurations.
+        cmake {
+            // Provides a relative path to your CMake build script.
+            path "../../../android/CMakeLists.txt"
+        }
+    }
+
     lintOptions {
         disable 'InvalidPackage'
     }
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.example.native_add_example"
+        applicationId "com.example.nativecoreapp"
         minSdkVersion 16
         targetSdkVersion 29
         versionCode flutterVersionCode.toInteger()

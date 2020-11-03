@@ -1,4 +1,4 @@
-# native_add
+# native_core
 
 A new flutter plugin project.
 
